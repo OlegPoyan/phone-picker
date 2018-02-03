@@ -16,8 +16,10 @@ PhonePicker web application
     ```
 4. Install nodemon.
     >Nodemon is a utility that will monitor for any changes in your source and automatically restart your server
-
-    `npm install nodemon -g`
+    ```
+    npm install nodemon -g
+    sudo ln -s /opt/node-v8.9.4-linux-x64/bin/nodemon /usr/local/bin/nodemon
+    ```
 
 ## Run code
 1. Clone repository
@@ -32,6 +34,6 @@ PhonePicker web application
 
     `npm install`
 
-4. Run HTTP server on port 3000
+4. Run HTTP server on port 3000 (make sure nodejs and nodemon binaries are on the path)
 
     `npm run dev`
