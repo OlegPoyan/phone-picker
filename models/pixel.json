@@ -1,0 +1,57 @@
+{
+  "device": {
+    "slug": "nexus-pixel",
+    "title": "Nexus Pixel",
+    "pictures":["https://www.verizonwireless.com/smartphones/google-pixel-xl/",
+          "https://www.amazon.com/Google-Pixel-Quite-Black-32GB/dp/B071ZN4K8V"],
+    "description": "Pixel, Phone by Google. 1st generation.",
+    "specs": {
+      "os": "Android 7.1 Nougat",
+      "display": "5.0\" AMOLED Full HD (1920x1080) 441ppi",
+      "cameras": {
+        "front":"8 MP",
+        "back": "12.3 MP"
+      },
+      "processors":{
+        "cpu": "Qualcomm® Snapdragon™ 821",
+        "gpu": "Adreno™ 530 GPU"
+      },
+      "ram": "4GB",
+      "storage": {
+        "8gb": "false",
+        "16gb": "false",
+        "32gb": "true",
+        "64gb": "false",
+        "128gb": "true"
+      },
+      "dimensions": {
+        "length": "5.66 in (143.84 mm)",
+        "width": "2.74 in (69.54 mm)",
+        "height": "0.29 in (7.31 mm)"
+      },
+      "weight": "5.04 oz (143 g)",
+      "colors": "Very Silver/Quite Black/Really Blue (Limited Edition)",
+      "speaker": "single bottom-firing speaker",
+      "microphone": "3 microphones (2 front, 1 rear)",
+      "battery": "2,770 mAh",
+      "wireless": {
+        "wifi": "Wi-Fi 802.11 a/b/g/n/ac 2x2 MIMO, dual-band (2.4 GHz, 5.0 GHz)",
+        "bt": "Bluetooth 4.2",
+        "NFC": "true"
+      },
+      "location": "GPS and GLONASS",
+      "network": "GSM: Quad-band GSM,UMTS/WCDMA : B 1/2/4/5/8, CDMA: BC0/BC1/BC10, TD-SCDMA: N/A",
+      "sensors": "Pixel Imprint, a fast fingerprint sensor, Accelerometer/Gyroscope,Magnetometer,Barometer, Proximity sensor/Ambient Light Sensor,Hall sensor, Android Sensor Hub",
+      "ports": {
+        "usb": "USB-C/USB 3.0 ",
+        "3.5mm": "true",
+        "sim": "Nano SIM slot"
+      },
+      "materials": {
+        "body": "anodized aluminium",
+        "screen": "Corning® Gorilla® Glass 4"
+      },
+      "other": "RGB LED notification light, Hearing Aid Compatibility rating: M4/T4 HAC"
+    }
+  }
+}
