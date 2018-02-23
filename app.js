@@ -8,7 +8,8 @@ var fs = require('fs'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler');
-    // mongoose = require('mongoose');
+
+var {mongoose} = require('./database/mongoose');
 
 var isProduction = process.env.NODE_ENV === 'production';
 

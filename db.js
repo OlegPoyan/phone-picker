@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
   user: '',
   password: '',
   database: 'PhonePicker'
-})
+});
 
 connection.connect(function(err) {
   if (err) throw err
