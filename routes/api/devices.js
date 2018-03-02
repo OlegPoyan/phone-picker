@@ -19,6 +19,55 @@ router.get('/',(req,res,next) => {
       res.status(400).send(err);
     });
 });
+
+//example of using URL arguments to get specific phones from the
+//database.
+//example route: localhost:3000/api/devices/slug/nexus-pixel
+router.get('/slug/:slug',(req,res,next) => {
+  var slug = req.params.slug;
+  Phone.findOne({slug: slug}).then((phone) => {
+    if(phone === null) {
+      res.status(400).send();
+    } else {
+      res.send({phone});
+    }
+  }).catch((err) => {
+    res.status(400).send(err);
+  });
+});
+
+//Gets a phone with a matching title
+//example route: localhost:3000/api/devices/slug/nexus-pixel
+router.get('/title/:title',(req,res,next) => {
+  var title = req.params.title;
+  Phone.findOne({title: title}).then((phone) => {
+    if(phone === null) {
+      res.status(400).send(title);
+    } else {
+      res.send({phone});
+    }
+  }).catch((err) => {
+    res.status(400).send(err);
+  });
+});
+
+
+//Gets all phones with a matching os
+// localhost:3000/api/devices/os/Android 7.1 Nougat
+router.get('/os/:os',(req,res,next) => {
+  var os = req.params.os;
+  Phone.find({os: os}).then((phones) => {
+    if(phones === null) {
+      res.status(400).send(title);
+    } else {
+      res.send({phones});
+    }
+  }).catch((err) => {
+    res.status(400).send(err);
+  });
+});
+
+
 //
 // router.get('/', function(req, res, next) {
 //   return res.json({devices: [device1, device2]})
