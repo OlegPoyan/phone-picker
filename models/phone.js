@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var Phone = mongoose.model('Phone', {
+var Phone = new mongoose.Schema({
     slug: {
       type: String,
       required: false,
@@ -181,6 +181,6 @@ var Phone = mongoose.model('Phone', {
       minlength: 1,
       trim: true
     }
-});
+}, {collection : 'phones'});
 
-module.exports = {Phone};
+mongoose.model('Phone', Phone);

@@ -1,88 +1,75 @@
 var router = require('express').Router(),
     fs = require('fs'),
     path = require('path'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    mongoose = require('mongoose');
 
-var {mongoose} = require('../../database/mongoose');
-var {Phone} = require('../../models/phone');
-var {User} = require('../../models/user');
+var Phone = mongoose.model('Phone');
+var User = mongoose.model('User');
 
-// hardcoded json information related to Pixel XL device
-var device1 = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'models', 'pixel.json'), 'utf8'));
-var device2 = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'models', 'pixelxl.json'), 'utf8'));
+router.param('slug', function(req, res, next, slug) {
+  Phone.findOne({ slug: slug})
+    .then(function (phone) {
+      if (!phone) { return res.sendStatus(404); }
 
+      req.phone = phone;
 
-router.get('/',(req,res,next) => {
-    Phone.find().then((phones) => {
-      res.send({phones});
-    }, (err) => {
-      res.status(400).send(err);
-    });
+      return next();
+    }).catch(next);
 });
+
+// queryable endpoint
+// example http://localhost:3000/api/devices/
+router.get('/',function(req,res,next) {
+    var query = {};
+    var limit = 10;
+    var offset = 0;
+
+    // limit and offset for the pagination purposes
+    if(typeof req.query.limit !== 'undefined'){
+        limit = req.query.limit;
+    }
+
+    if(typeof req.query.offset !== 'undefined'){
+        offset = req.query.offset;
+    }
+
+    //add arguments to the query object
+    if(typeof req.query.os !== 'undefined'){
+        query.os = req.query.os;
+    }
+
+    if(typeof req.query.storage !== 'undefined'){
+        query.storage = req.query.storage;
+    }
+
+    if(typeof req.query.ram !== 'undefined'){
+        query.ram = req.query.ram;
+    }
+
+    return Promise.all([
+        Phone.find(query)
+            .limit(Number(limit))
+            .skip(Number(offset))
+            .exec(),
+        Phone.count(query).exec()
+    ]).then(function(results){
+        console.log(results);
+        var phones = results[0];
+        var phonesCount = results[1];
+        return res.json({
+            phones: phones,
+            phonesCount: phonesCount
+        });
+    }).catch(next);
+});
+
 
 //example of using URL arguments to get specific phones from the
 //database.
-//example route: localhost:3000/api/devices/slug/nexus-pixel
-router.get('/slug/:slug',(req,res,next) => {
-  var slug = req.params.slug;
-  Phone.findOne({slug: slug}).then((phone) => {
-    if(phone === null) {
-      res.status(400).send();
-    } else {
-      res.send({phone});
-    }
-  }).catch((err) => {
-    res.status(400).send(err);
-  });
+//example route: localhost:3000/api/devices/nexus-pixel
+router.get('/:slug',function(req,res) {
+    return res.json({phone: req.phone});
 });
-
-//Gets a phone with a matching title
-//example route: localhost:3000/api/devices/slug/nexus-pixel
-router.get('/title/:title',(req,res,next) => {
-  var title = req.params.title;
-  Phone.findOne({title: title}).then((phone) => {
-    if(phone === null) {
-      res.status(400).send(title);
-    } else {
-      res.send({phone});
-    }
-  }).catch((err) => {
-    res.status(400).send(err);
-  });
-});
-
-
-//Gets all phones with a matching os
-// localhost:3000/api/devices/os/Android 7.1 Nougat
-router.get('/os/:os',(req,res,next) => {
-  var os = req.params.os;
-  Phone.find({os: os}).then((phones) => {
-    if(phones === null) {
-      res.status(400).send(title);
-    } else {
-      res.send({phones});
-    }
-  }).catch((err) => {
-    res.status(400).send(err);
-  });
-});
-
-
-//
-// router.get('/', function(req, res, next) {
-//   return res.json({devices: [device1, device2]})
-// });
-//
-// router.get('/pixel', function(req, res, next) {
-//   return res.json(device1);
-// });
-//
-// router.get('/pixelxl', function(req, res, next) {
-//   return res.json(device2);
-// });
-//
-// router.get('/compare/pixel-pixelxl', function(req, res, next) {
-//   return res.json({devices: [device1, device2]});
-// });
 
 module.exports = router;
