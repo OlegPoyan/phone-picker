@@ -9,7 +9,7 @@ var fs = require('fs'),
     passport = require('passport'),
     errorhandler = require('errorhandler');
 
-var {mongoose} = require('./database/mongoose');
+var mongoose = require('mongoose');
 
 var isProduction = process.env.NODE_ENV === 'production';
 
@@ -34,11 +34,14 @@ if (!isProduction) {
 
 // database config
 if(isProduction){
-  //mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI);
 } else {
-  // mongoose.connect('mongodb://localhost/conduit');
-  // mongoose.set('debug', true);
+  mongoose.connect('mongodb://localhost/PhoneApp');
+  mongoose.set('debug', true);
 }
+
+require('./models/phone');
+require('./models/user');
 
 app.use(require('./routes'));
 

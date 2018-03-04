@@ -1,6 +1,6 @@
 var router = require('express').Router();
 
-router.use('/', require('./devices'));
+// router.use('/', require('./devices'));
 router.use('/devices', require('./devices'));
 
 router.use(function(err, req, res, next){
