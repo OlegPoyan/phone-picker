@@ -1,6 +1,12 @@
 var mongoose = require('mongoose');
 
 var Phone = new mongoose.Schema({
+    thumbnail: {
+      type: String,
+      required: false,
+      minlength: 1,
+      trim: true
+    }, 
     slug: {
       type: String,
       required: false,
@@ -8,12 +14,6 @@ var Phone = new mongoose.Schema({
       trim: true
     },
     title: {
-      type: String,
-      required: false,
-      minlength: 1,
-      trim: true
-    },
-    description: {
       type: String,
       required: false,
       minlength: 1,
@@ -79,7 +79,7 @@ var Phone = new mongoose.Schema({
       minlength: 1,
       trim: true
     },
-    height: {
+    depth: {
       type: String,
       required: false,
       minlength: 1,
@@ -92,18 +92,6 @@ var Phone = new mongoose.Schema({
       trim: true
     },
     colors: {
-      type: String,
-      required: false,
-      minlength: 1,
-      trim: true
-    },
-    speaker: {
-      type: String,
-      required: false,
-      minlength: 1,
-      trim: true
-    },
-    microphone: {
       type: String,
       required: false,
       minlength: 1,
@@ -175,7 +163,7 @@ var Phone = new mongoose.Schema({
       minlength: 1,
       trim: true
     },
-    other: {
+    price: {
       type: String,
       required: false,
       minlength: 1,

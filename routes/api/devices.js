@@ -75,8 +75,8 @@ router.get('/',function(req,res,next) {
       query.width = {$regex: new RegExp('.*' + req.query.width + '.*'), $options: 'i'};
     }
 
-    if(typeof req.query.height !== 'undefined'){
-      query.height = {$regex: new RegExp('.*' + req.query.height + '.*'), $options: 'i'};
+    if(typeof req.query.depth !== 'undefined'){
+      query.depth = {$regex: new RegExp('.*' + req.query.depth + '.*'), $options: 'i'};
     }
 
     if(typeof req.query.weight !== 'undefined'){
