@@ -35,6 +35,10 @@ router.get('/',function(req,res,next) {
     }
 
     //add arguments to the query object
+    if(typeof req.query.title !== 'undefined'){
+        query.title = {$regex: new RegExp('.*' + req.query.title + '.*'), $options: 'i'};
+    }
+
     if(typeof req.query.os !== 'undefined'){
         query.os = {$regex: new RegExp('.*' + req.query.os + '.*'), $options: 'i'};
     }
