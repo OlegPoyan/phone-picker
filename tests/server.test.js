@@ -71,10 +71,38 @@ const phones = [
 ];
 
 describe('Get /api/devices', () => {
-    it('Should get 10 devices', (done) => {
+    it('Should get 10 devices if you give no query parameters.', (done) => {
         request(app).get('/api/devices').expect(200).expect((res) => {
             expect(res.body.phones.length).toBe(10);
         }).end(done);
+    });
+    it('Should get only android devices if query parameter os=Android', () => {
+        request(app).get('/api/devices?os=android').expect(200).expect((res) => {
+            for(let phone of res.body.phones) {
+                expect(phone.os).toInclude('Android');
+            }
+        });
+    });
+    it('Should get only devices with AMOLED displays if query parameter display=AMOLED', () => {
+        request(app).get('/api/devices?display=AMOLED').expect(200).expect((res) => {
+            for(let phone of res.body.phones) {
+                expect(phone.display).toInclude('AMOLED');
+            }
+        });
+    });
+    it('Should get only devices with 16 MP back camera if query parameter back_camera=16', () => {
+        request(app).get('/api/devices?back_camera=16').expect(200).expect((res) => {
+            for(let phone of res.body.phones) {
+                expect(phone.back_camera).toInclude('16');
+            }
+        });
+    });
+    it('Should get only devices with 16 MP front camera if query parameter front_camera=16', () => {
+        request(app).get('/api/devices?front_camera=16').expect(200).expect((res) => {
+            for(let phone of res.body.phones) {
+                expect(phone.front_camera).toInclude('16');
+            }
+        });
     });
 });
 
@@ -85,3 +113,5 @@ describe('Get /api/devices/:slug', () => {
         }).end(done);
     });
 });
+
+
