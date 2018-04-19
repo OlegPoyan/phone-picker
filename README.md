@@ -20,6 +20,13 @@ PhonePicker web application
     npm install nodemon -g
     sudo ln -s /opt/node-v8.9.4-linux-x64/bin/nodemon /usr/local/bin/nodemon
     ```
+    
+## mongoDB setup
+1. Install latest mongodb and start monogd service
+2. ```
+    cd $EXPRESS_PROJECT/database
+    mongoimport -d PhoneApp -c phones output.json
+    ```
 
 ## Run code
 1. Clone repository
